@@ -20,7 +20,7 @@ function initGame(){
     words =TEXT.split(' ').slice(0, 32)
     currentTime = INITIAL_TIME
 
-    $time.innerHTML = currentTime
+    $time.textContent = currentTime
 
     $paragraph.innerHTML = words.map((word, index) => {
         const letters = word.split('')
@@ -32,8 +32,21 @@ function initGame(){
                 .join('')}
         </x-word>`
     }).join('')
+
+    const intervalId = setInterval(()=>{
+        currentTime--
+        $time.textContent = currentTime
+        if(currentTime === 0){
+            clearInterval(intervalId)
+            gameOver()
+        }
+    }, 1000)
 }
 
 function initEvent(){
 
+}
+
+function gameOver(){
+    console.log("game over")
 }
