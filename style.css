@@ -1,4 +1,16 @@
 :root{
     color-scheme: ligth dark;
+    --green: #00b755;
+    --yellow: #daaf38;
+    --red: #ca4754;
+    --black: #999;
+}
 
+body{
+    background: var(--black);
+    font-family: Menlo, monospace;
+    display: grid;
+    justify-content: center;
+    margin-top: 32px;
+    padding: 16px;
 }
