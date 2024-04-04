@@ -33,6 +33,13 @@ function initGame(){
         </x-word>`
     }).join('')
 
+    const $firstWord = $paragraph.querySelector('x-word')
+    $firstWord.classList.add('active')
+    $firstWord.querySelector('x-letter').classList.add('active')
+
+    
+
+
     const intervalId = setInterval(()=>{
         currentTime--
         $time.textContent = currentTime
