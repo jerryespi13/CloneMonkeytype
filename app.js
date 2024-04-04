@@ -4,10 +4,10 @@ const $time = document.querySelector('time')
 const $paragraph = document.querySelector('p')
 const $input = document.querySelector('input')
 
-const INITIAL_TIME = 300
+const INITIAL_TIME = 30
 
 const TEXT = `este es un texto de prueba para poder
-hacar testeo de la app en un inicio así que posiblemente
+hacer testeo de la app en un inicio así que posiblemente
 luego cambie por otro`
 
 let words = []
@@ -22,7 +22,16 @@ function initGame(){
 
     $time.innerHTML = currentTime
 
-    $paragraph.textContent = words.map(word => word + ' ').join('')
+    $paragraph.innerHTML = words.map((word, index) => {
+        const letters = word.split('')
+        console.log(letters)
+        
+        return `<x-word>
+            ${letters
+                .map(letter => `<x-letter>${letter}</x-letter>`)
+                .join('')}
+        </x-word>`
+    }).join('')
 }
 
 function initEvent(){
