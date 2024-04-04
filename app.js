@@ -6,6 +6,8 @@ const $input = document.querySelector('input')
 
 const INITIAL_TIME = 30
 
+let intervalId
+
 const TEXT = `este es un texto de prueba para poder
 hacer testeo de la app en un inicio así que posiblemente
 luego cambie por otro`
@@ -36,22 +38,23 @@ function initGame(){
     const $firstWord = $paragraph.querySelector('x-word')
     $firstWord.classList.add('active')
     $firstWord.querySelector('x-letter').classList.add('active')
-
-    
-
-
-    const intervalId = setInterval(()=>{
-        currentTime--
-        $time.textContent = currentTime
-        if(currentTime === 0){
-            clearInterval(intervalId)
-            gameOver()
-        }
-    }, 1000)
 }
 
 function initEvent(){
+    document.addEventListener('keydown', ()=>{
+        $input.focus()
 
+        if(!intervalId){
+            intervalId = setInterval(()=>{
+                currentTime--
+                $time.textContent = currentTime
+                if(currentTime === 0){
+                    clearInterval(intervalId)
+                    gameOver()
+                }
+            }, 1000)
+        }
+    })
 }
 
 function gameOver(){
