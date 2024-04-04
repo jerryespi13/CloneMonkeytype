@@ -6,11 +6,39 @@
     --black: #999;
 }
 
-body{
+body {
     background: var(--black);
     font-family: Menlo, monospace;
     display: grid;
+    padding: 32px;
     justify-content: center;
     margin-top: 32px;
     padding: 16px;
+}
+
+section{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 500px;
+}
+
+time{
+    color: var(--yellow);
+}
+
+input{
+    z-index: -999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+p{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 8px;
+    margin: 0;
 }
