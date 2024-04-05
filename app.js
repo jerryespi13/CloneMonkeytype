@@ -58,7 +58,41 @@ function initEvent(){
     $input.addEventListener('keyup', onKeyUp)
 }
 
-function onKeyDown(){
+function onKeyDown(event){
+    const $currentWord = $paragraph.querySelector('x-word.active')
+    const $currentLetter= $paragraph.querySelector('x-letter.active')
+    
+    const { key } = event
+    if(key === ' '){
+        event.preventDefault()
+
+        // recuperamos el siguiente elemento hermano, en este caso la siguiente palabra
+        const $nextWord = $currentWord.nextElementSibling
+        // recuperamos la primera letra de la siguiente palabra
+        const $nextLetter = $nextWord.querySelector('x-letter')
+
+        // quitamos el active a la palabra y letra actual
+        $currentWord.classList.remove('active', 'marked')
+        $currentLetter.classList.remove('active')
+
+        // añadimos el active a la siguiente palabra
+        $nextWord.classList.add('active')
+        $nextLetter.classList.add('active')
+
+        // limpiamos el input para poder comparar la siguiente palabra
+        $input.value = ''
+
+        // verificamos si alguna letra sin escribir
+        const hasMissedLetter = $currentWord
+            .querySelectorAll('x-letter:not(.correct)').length > 0
+        
+        // si se ha olvidado escribir una letra sin escribir le agragamos
+        // la clase marked para poder añadir un estilo con css e indicar 
+        //que la palabra no fue escrita correctamente y 
+        const classToAdd = hasMissedLetter ? 'marked' : 'correct'
+        $currentWord.classList.add(classToAdd)
+        return
+    }
 
 }
 
