@@ -66,13 +66,12 @@ function onKeyUp(){
     // recuperamos los elementos actuales
     const $currentWord = $paragraph.querySelector('x-word.active')
     const $currentLetter = $paragraph.querySelector('x-letter.active')
-
+    
     const currentWord = $currentWord.innerText.trim()
     $input.maxLength = currentWord.length
-
+    
     // obtenemos todas las letras de la palabra a escribir
     const $allLetters = $currentWord.querySelectorAll('x-letter')
-  
 
     // quitamos las clases correct e incorrect
     $allLetters.forEach($letter => $letter.classList.remove('correct', 'incorrect'))
@@ -94,8 +93,22 @@ function onKeyUp(){
         // si no, se le agrega incorrect
         const letterClass = isCorrect ? 'correct' : 'incorrect'
         $letter.classList.add(letterClass)
-
     })
+    // movemos el cursor
+    // quitamos la clase active a la letra anterior
+    $currentLetter.classList.remove('active', 'is-last')
+    const inputLength = $input.value.length
+    const $nextActiveLetter = $allLetters[inputLength]
+
+    // ponemos la clase active a la letra actual
+    if($nextActiveLetter){
+        $nextActiveLetter.classList.add('active')
+    }
+    else{
+        $currentLetter.classList.add('active', 'is-last')
+        // TO DO: gameover() si no hay proxima palabra
+    }
+
 }
 
 function gameOver(){

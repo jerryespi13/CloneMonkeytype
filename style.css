@@ -58,6 +58,10 @@ x-letter{
         animation: 1s blink infinite ease-in-out;
     }
 
+    &.active.is-last::before{
+        left: 65%;
+    }
+
     &.correct{
         color: white;
     }
