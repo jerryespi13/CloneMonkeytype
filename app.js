@@ -8,9 +8,7 @@ const INITIAL_TIME = 30
 
 let intervalId
 
-const TEXT = `este es un texto de prueba para poder
-hacer testeo de la app en un inicio así que posiblemente
-luego cambie por otro`
+const TEXT = 'este es un texto de prueba para poder hacer testeo de la app en un inicio así que posiblemente luego cambie por otro'
 
 let words = []
 let currentTime = INITIAL_TIME
@@ -92,6 +90,46 @@ function onKeyDown(event){
         const classToAdd = hasMissedLetter ? 'marked' : 'correct'
         $currentWord.classList.add(classToAdd)
         return
+    }
+
+    if(key === 'Backspace'){
+        // recuperamos el antarior elemento hermano, en este caso la anterior palabra
+        const $prevWord = $currentWord.previousElementSibling
+        // recuperamos la primera letra de la anterior palabra
+        const $prevLetter = $currentLetter.previousElementSibling
+        
+        // si no hay palabra anterior no regresa a ninguna palabra anterior
+        if(!$prevWord && !$prevLetter){
+            event.preventDefault()
+            return
+        }
+
+        // recuperamos la palabra mal escrita
+        const $wordMarked = $paragraph.querySelector('x-word.marked')
+        // si existe una palabra marcada(mal escrita) y no existe una letra anterio
+        if($wordMarked && !$prevLetter){
+            event.preventDefault()
+            // a la palabra anterior que esta marcada se desmarca
+            $prevWord.classList.remove('marked')
+            // y se pone activa
+            $prevWord.classList.add('active')
+
+            // recuperamos a que letra de la palabra que estaba marcada debemos ir
+            const $letterToGo = $prevWord.querySelector('x-letter:last-child')
+
+            // le quitiamos el activo a la palabra actual
+            $currentLetter.classList.remove('active')
+            // y le ponemos el activo a la palabra que hay que corregir
+            $letterToGo.classList.add('active')
+
+            // llenamos el input con lo que el usuario habia mal escrito
+            $input.value = [
+                ...$prevWord.querySelectorAll('x-letter.correct, x-letter.incorrect')
+            ].map($el => {
+                return $el.classList.contains('correct') ? $el.innerText : '*'
+            })
+            .join('')
+        }
     }
 
 }
