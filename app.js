@@ -1,4 +1,6 @@
-//import { words as INIRIAL_WORDS} from './data.js'
+import { words_english as WORDS_ENGLISH} from './data.js'
+import { words_spanish as WORDS_SPANISH} from './data.js'
+
 
 const $time = document.querySelector('time')
 const $paragraph = document.querySelector('p')
@@ -8,7 +10,6 @@ const INITIAL_TIME = 30
 
 let intervalId
 
-const TEXT = 'este es un texto de prueba para poder hacer testeo de la app en un inicio así que posiblemente luego cambie por otro'
 
 let words = []
 let currentTime = INITIAL_TIME
@@ -16,8 +17,11 @@ let currentTime = INITIAL_TIME
 initGame()
 initEvent()
 
+
 function initGame(){
-    words =TEXT.split(' ').slice(0, 32)
+    words =WORDS_SPANISH.toSorted(
+    () => Math.random() - 0.5
+    ).slice(0, 50)
     currentTime = INITIAL_TIME
 
     $time.textContent = currentTime
