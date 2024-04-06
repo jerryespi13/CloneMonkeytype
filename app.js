@@ -5,6 +5,10 @@ import { words_spanish as WORDS_SPANISH} from './data.js'
 const $time = document.querySelector('time')
 const $paragraph = document.querySelector('p')
 const $input = document.querySelector('input')
+const $game = document.querySelector('#game')
+const $results = document.querySelector('#results')
+const $wpm = document.querySelector('h3')
+const $accuracy = $results.querySelector('h3:last-child')
 
 const INITIAL_TIME = 30
 
@@ -19,7 +23,7 @@ initEvent()
 
 
 function initGame(){
-    words =WORDS_SPANISH.toSorted(
+    words =WORDS_ENGLISH.toSorted(
     () => Math.random() - 0.5
     ).slice(0, 50)
     currentTime = INITIAL_TIME
@@ -188,5 +192,29 @@ function onKeyUp(){
 }
 
 function gameOver(){
-    console.log("game over")
+    // ocultamos la section game
+    $game.style.display = 'none'
+    // mostramos la section resultss
+    $results.style.display = 'flex'
+
+    // obtenemos cuantas palabras fueron escritas bien
+    const correctWords = $paragraph.querySelectorAll('x-word.correct').length
+    // obtenemos cuantas letras fueron escritas bien
+    const correctLetters = $paragraph.querySelectorAll('x-letter.correct').length
+    // obtenemos cuantas letras fueron mal escritas
+    const incorrectLetters = $paragraph.querySelectorAll('x-letter.incorrect').length
+
+    // obtenemos el total de letras
+    const totalLetters = correctLetters + incorrectLetters
+    // calculamos la precision de escritura
+    const accuracy = totalLetters > 0
+    ? (correctLetters / totalLetters ) * 100
+    : 0
+
+    // calculamos las palabras por minuto
+    const wpm = correctWords / (INITIAL_TIME / 60)
+
+    // mostramos los resultados
+    $wpm.textContent = wpm
+    $accuracy.textContent = `${accuracy.toFixed(2)}%`
 }
