@@ -7,10 +7,11 @@ const $paragraph = document.querySelector('p')
 const $input = document.querySelector('input')
 const $game = document.querySelector('#game')
 const $results = document.querySelector('#results')
-const $wpm = document.querySelector('h3')
-const $accuracy = $results.querySelector('h3:last-child')
+const $wpm = document.querySelector('#results-wpm')
+const $accuracy = $results.querySelector('#results-accuracy')
+const $reloadButton = document.querySelector('#reload-button')
 
-const INITIAL_TIME = 30
+const INITIAL_TIME = 5
 
 let intervalId
 
@@ -23,6 +24,13 @@ initEvent()
 
 
 function initGame(){
+    // mostramos el area del juego
+    $game.style.display = 'flex'
+    // ocultamos los resultados
+    $results.style.display = 'none'
+    // limpiamos el input
+    $input.value = ''
+
     words =WORDS_ENGLISH.toSorted(
     () => Math.random() - 0.5
     ).slice(0, 50)
@@ -47,13 +55,13 @@ function initGame(){
 function initEvent(){
     document.addEventListener('keydown', ()=>{
         $input.focus()
-
-        if(!intervalId){
+        if(!intervalId && $game.style.display === 'flex'){
             intervalId = setInterval(()=>{
                 currentTime--
                 $time.textContent = currentTime
                 if(currentTime === 0){
                     clearInterval(intervalId)
+                    intervalId = null
                     gameOver()
                 }
             }, 1000)
@@ -62,6 +70,7 @@ function initEvent(){
 
     $input.addEventListener('keydown', onKeyDown)
     $input.addEventListener('keyup', onKeyUp)
+    $reloadButton.addEventListener('click', initGame)
 }
 
 function onKeyDown(event){

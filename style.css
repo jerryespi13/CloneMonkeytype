@@ -98,3 +98,35 @@ x-word{
 #results{
     display:none;
 }
+
+h2{
+    font-weight: 400;
+    opacity: 0.4;
+    margin: 0;
+    font-size: 16px;
+}
+
+h3{
+    font-weight: 400;
+    margin: 0;
+    font-size: 24px;
+    color: var(--yellow);
+}
+
+#reload-button{
+    background: transparent;
+    border: 0;
+    margin-top: 32px;
+    padding: 8px;
+    opacity: 0.4;
+    display: inline-block;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    cursor: pointer;
+    border-radius: 16px;
+
+    &:hover{
+        background: #444;
+        opacity: 1;
+        scale: 110%;
+    }
+}
